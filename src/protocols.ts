@@ -1,4 +1,4 @@
-import { Credential } from '@prisma/client';
+import { Credential, Network } from '@prisma/client';
 
 export type User = {
   email: string;
@@ -17,3 +17,7 @@ export type ToDelete = {
 };
 
 export type CredentialWithoutUserIdAndId = Omit<Credential, 'id' | 'userId'>;
+
+export type NetworkWithoutUserIdAndId = Omit<Network, 'id' | 'userId'>;
+
+export type NetworkWithoutId = Omit<Network, 'id'>;

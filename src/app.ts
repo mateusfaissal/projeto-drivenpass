@@ -1,18 +1,24 @@
-import express, { json } from 'express';
+import express, { json, Express } from 'express';
 import 'express-async-errors';
-import usersRouter from './routers/user.routes';
+import cors from 'cors';
+import { usersRouter, networkRouter, credentialsRouter } from './routers';
 import errorHandlingMiddleware from './middlewares/error-handler';
-import cors from 'cors'
+import { connectDb } from './database/database';
 
-
-const app = express()
-
+const app = express();
 
 app
-    .use(cors())
-    .use(json())
-    .use('/sign-up', usersRouter)
-    .use('/sign-in', usersRouter)
-    .use(errorHandlingMiddleware)
+  .use(cors())
+  .use(json())
+  .use('/sign-up', usersRouter)
+  .use('/sign-in', usersRouter)
+  .use('/credentials', credentialsRouter)
+  .use('/networks', networkRouter)
+  .use(errorHandlingMiddleware);
 
-export default app
+export function init(): Promise<Express> {
+  connectDb();
+  return Promise.resolve(app);
+}
+
+export default app;

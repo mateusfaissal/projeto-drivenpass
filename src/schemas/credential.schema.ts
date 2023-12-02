@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { CredentialWithoutId, ToDelete } from '@/protocols';
 
-export const toDeleteById = Joi.object<ToDelete>({
+export const toDeleteByIdCredential = Joi.object<ToDelete>({
   id: Joi.number().min(1).required(),
 });
 
