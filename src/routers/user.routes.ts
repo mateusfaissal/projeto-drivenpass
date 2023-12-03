@@ -5,6 +5,6 @@ import { createUser } from '@/schemas/user.schema';
 
 const usersRouter = Router()
   .post('/', validateSchemaMiddleware(createUser), userController.signUp)
-  .post('/', validateSchemaMiddleware(createUser), userController.signIn);
+  .post('/sign-in', validateSchemaMiddleware(createUser), userController.signIn);
 
 export { usersRouter };

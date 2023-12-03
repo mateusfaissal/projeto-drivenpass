@@ -9,7 +9,7 @@ export async function authToken(req: AuthRequest, res: Response, next: NextFunct
     throw unauthorizedError();
   }
 
-  const token = header.split('')[1];
+  const token = header.split(' ')[1];
   if (!token) {
     throw unauthorizedError();
   }

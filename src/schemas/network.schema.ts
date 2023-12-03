@@ -4,7 +4,7 @@ import { NetworkWithoutUserIdAndId, ToDelete } from '@/protocols';
 export const networkSchema = Joi.object<NetworkWithoutUserIdAndId>({
   network: Joi.string().required(),
   title: Joi.string().required(),
-  password: Joi.string().required(),
+  password: Joi.string().min(3).required(),
 });
 
 export const toDeleteByIdNetwork = Joi.object<ToDelete>({
