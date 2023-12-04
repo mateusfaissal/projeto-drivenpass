@@ -13,7 +13,7 @@ app
   .use('/sign-up', signUpRouter)
   .use('/sign-in', signInRouter)
   .use('/credential', credentialsRouter)
-  .use('/networks', networkRouter)
+  .use('/network', networkRouter)
   .use(errorHandlingMiddleware);
 
 export function init(): Promise<Express> {
