@@ -12,7 +12,7 @@ app
   .use(json())
   .use('/sign-up', signUpRouter)
   .use('/sign-in', signInRouter)
-  .use('/credentials', credentialsRouter)
+  .use('/credential', credentialsRouter)
   .use('/networks', networkRouter)
   .use(errorHandlingMiddleware);
 
