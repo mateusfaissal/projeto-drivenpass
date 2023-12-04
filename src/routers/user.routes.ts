@@ -3,8 +3,8 @@ import { userController } from '@/controllers/user.controller';
 import { validateSchemaMiddleware } from '@/middlewares/schema-validation';
 import { createUser } from '@/schemas/user.schema';
 
-const usersRouter = Router()
-  .post('/', validateSchemaMiddleware(createUser), userController.signUp)
-  .post('/sign-in', validateSchemaMiddleware(createUser), userController.signIn);
+const signUpRouter = Router().post('/', validateSchemaMiddleware(createUser), userController.signUp);
 
-export { usersRouter };
+const signInRouter = Router().post('/', validateSchemaMiddleware(createUser), userController.signIn);
+
+export { signUpRouter, signInRouter };
