@@ -1,8 +1,10 @@
 import Cryptr from 'cryptr';
 import { notFoundError, sameCredentialError } from '@/errors';
 import { credentialRepository } from '@/repositories/credential.repository';
+import { CredentialWithoutId } from '@/protocols';
 
-async function post(userId: number, title: string, url: string, username: string, password: string) {
+async function post(credentialData: CredentialWithoutId) {
+  const { userId, title, username, password } = credentialData;
   const checkCredential = await credentialRepository.checkCredential(userId, title, username);
   if (checkCredential) {
     throw sameCredentialError();
@@ -11,7 +13,7 @@ async function post(userId: number, title: string, url: string, username: string
   this.cryptr = new Cryptr(password);
   const hash = this.cryptr.encrypt(password);
 
-  await credentialRepository.create({ title, url, username, password: hash, userId });
+  await credentialRepository.create({ ...credentialData, password: hash });
 }
 
 async function get(userId: number) {

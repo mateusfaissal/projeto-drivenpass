@@ -1,14 +1,18 @@
 import httpStatus from 'http-status';
 import { Response } from 'express';
 import { AuthRequest } from '@/middlewares/auth-middleware';
-import { NetworkWithoutUserIdAndId, ToDelete } from '@/protocols';
+import { NetworkWithoutId, ToDelete } from '@/protocols';
 import { networkService } from '@/services';
 
 async function create(req: AuthRequest, res: Response) {
-  const { title, network, password } = req.body as NetworkWithoutUserIdAndId;
-  const userId = Number(req.userId);
+  const networkData: NetworkWithoutId = {
+    title: req.body.title,
+    network: req.body.network,
+    password: req.body.password,
+    userId: Number(req.userId),
+  };
 
-  await networkService.create(userId, title, network, password);
+  await networkService.create(networkData);
   return res.sendStatus(httpStatus.CREATED);
 }
 

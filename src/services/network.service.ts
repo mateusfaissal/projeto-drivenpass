@@ -1,12 +1,14 @@
 import Cryptr from 'cryptr';
 import { notFoundError } from '@/errors';
 import { networkRepository } from '@/repositories';
+import { NetworkWithoutId } from '@/protocols';
 
-async function create(userId: number, title: string, network: string, password: string) {
+async function create(networkData: NetworkWithoutId) {
+  const { password } = networkData;
   const cryptr = new Cryptr(password);
   const hash = cryptr.encrypt(password);
 
-  await networkRepository.create({ network, title, password: hash, userId });
+  await networkRepository.create({ ...networkData, password: hash });
 }
 
 async function get(userId: number) {

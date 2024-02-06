@@ -1,14 +1,19 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
 import { AuthRequest } from '@/middlewares/auth-middleware';
-import { ToDelete, CredentialWithoutUserIdAndId } from '@/protocols';
+import { ToDelete, CredentialWithoutId } from '@/protocols';
 import { credentialService } from '@/services/credential.service';
 
 async function create(req: AuthRequest, res: Response) {
-  const { title, url, username, password } = req.body as CredentialWithoutUserIdAndId;
-  const userId = Number(req.userId);
+  const credentialData: CredentialWithoutId = {
+    title: req.body.title,
+    url: req.body.url,
+    username: req.body.username,
+    password: req.body.password,
+    userId: Number(req.userId),
+  };
 
-  await credentialService.post(userId, title, url, username, password);
+  await credentialService.post(credentialData);
   return res.sendStatus(httpStatus.CREATED);
 }
 
